@@ -1,0 +1,28 @@
+{
+  "name": "online-resume",
+  "version": "0.1.0",
+  "author": "Urias Huang",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@vueuse/core": "^10.10.1",
+    "vue": "^3.4.27",
+    "vue-router": "^4.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "@vitejs/plugin-legacy": "^5.4.1",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "sass": "^1.77.4",
+    "terser": "^5.31.1",
+    "typescript": "^5.4.5",
+    "unplugin-auto-import": "^0.17.6",
+    "vite": "^5.2.13",
+    "vue-tsc": "^2.0.21"
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*.ts", "src/**/*.vue", "src/typings/**/*.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.vue", "src/typings/*.d.ts"],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "baseUrl": ".",
@@ -19,6 +19,9 @@
     "isolatedModules": true,
     "skipLibCheck": true,
     "lib": ["ESNext", "DOM"],
-    "types": ["vite/client", "node"]
+    "types": ["vite/client", "node"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   }
 }

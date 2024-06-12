@@ -1,9 +1,7 @@
-<script lang="ts" setup>
-import Skeleton from './Skeleton.vue';
-</script>
+<script lang="ts" setup></script>
 
 <template>
-  <Skeleton />
+  <RouterView />
 </template>
 
 <style lang="scss" scoped></style>

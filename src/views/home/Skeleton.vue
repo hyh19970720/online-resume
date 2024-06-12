@@ -1,46 +1,29 @@
 <script lang="ts" setup>
-const on = {
-  leave(el: HTMLElement, done: () => void) {
-    el.style.transition = 'opacity 0.3s linear, transform 0.3s linear';
-    el.style.opacity = '0';
-    el.style.transform = 'scale(1.5)';
-    setTimeout(done, 300);
-  },
-};
-
 const state = reactive({
   isLoaded: false,
-  visible: true,
 });
 
-const closeSkeleton = () => {
-  if (!state.isLoaded) return;
-  state.visible = false;
-};
-
 onMounted(() => {
+  document.body.style.pointerEvents = 'none';
   setTimeout(() => {
     state.isLoaded = true;
-  }, 3000);
+    document.body.style.pointerEvents = 'auto';
+  }, 5000);
 });
 </script>
 
 <template>
-  <Teleport to="body">
-    <Transition v-on="on">
-      <div v-if="state.visible" class="global-skeleton" @click="closeSkeleton">
-        <div class="skeleton-letters">
-          <template v-if="state.isLoaded">
-            <p>Click me</p>
-          </template>
-          <template v-else>
-            <span v-for="(str, idx) in 'LOADING'" :style="{ animationDelay: (idx + 1) / 10 + 's' }">{{ str }}</span>
-          </template>
-          <i class="loading-progress"></i>
-        </div>
-      </div>
-    </Transition>
-  </Teleport>
+  <div class="global-skeleton">
+    <div class="skeleton-letters">
+      <template v-if="state.isLoaded">
+        <p>Slide Down</p>
+      </template>
+      <template v-else>
+        <span v-for="(str, idx) in 'LOADING'" :style="{ animationDelay: (idx + 1) / 10 + 's' }">{{ str }}</span>
+      </template>
+      <i class="loading-progress"></i>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -140,11 +123,6 @@ onMounted(() => {
 }
 
 .global-skeleton {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   display: flex;
   align-items: center;
   justify-content: center;

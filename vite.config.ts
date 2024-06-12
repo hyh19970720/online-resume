@@ -1,3 +1,4 @@
+import path from 'node:path';
 import { defineConfig } from 'vite';
 
 import vue from '@vitejs/plugin-vue';
@@ -6,10 +7,10 @@ import autoImport from 'unplugin-auto-import/vite';
 
 export default defineConfig((config) => {
   return {
-    base: '/',
+    base: './',
     resolve: {
       alias: {
-        '@': 'src',
+        '@': path.resolve(__dirname, './src'),
       },
     },
     plugins: [

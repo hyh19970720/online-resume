@@ -7,7 +7,7 @@ In my spare time, I enjoy playing basketball, reading, and playing computer game
 I'm always looking for new opportunities to learn and grow, so if you're interested in working with me, please don't hesitate to contact me!
 Have a good life!`;
 
-const getIcons = (name: string) => new URL(`../../assets/svg/icons/${name}.svg`, import.meta.url).href;
+const getIcons = (name: string) => new URL(`../assets/svg/icons/${name}.svg`, import.meta.url).href;
 
 export const TECHNOLOGY_STACKS = [
   {

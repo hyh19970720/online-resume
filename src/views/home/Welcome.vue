@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { INTRODUCTION } from './data';
+import { useIntersectionObserver } from '@/hooks';
 
 const welcomeRef = ref<HTMLDivElement>();
 const messageRef = ref<HTMLDivElement>();
@@ -12,12 +13,24 @@ const state = reactive({
 
 const message = ref('');
 
-const setTypewriter = (msg: string) => {
+const handleObserver = () => {
+  state.sayHi = true;
+  setTimeout(() => {
+    state.title = true;
+  }, 250);
+  setTimeout(() => {
+    state.message = true;
+  }, 500);
+};
+
+useIntersectionObserver(welcomeRef, handleObserver);
+
+const setTypewriter = () => {
   let index = 0;
   const interval = setInterval(() => {
-    message.value += msg[index];
+    message.value += INTRODUCTION[index];
     index++;
-    if (index === msg.length) {
+    if (index === INTRODUCTION.length) {
       clearInterval(interval);
     }
   }, 30);
@@ -25,34 +38,21 @@ const setTypewriter = (msg: string) => {
 
 watchEffect(() => {
   if (messageRef.value) {
-    messageRef.value.addEventListener('animationend', () => {
-      setTypewriter(INTRODUCTION);
-    });
+    messageRef.value.addEventListener('animationend', setTypewriter);
   }
 });
 
-const watcher = new IntersectionObserver(
-  (entries) => {
-    if (entries[0].isIntersecting) {
-      state.sayHi = true;
-      state.title = true;
-      setTimeout(() => {
-        state.message = true;
-      }, 1000);
-    }
-  },
-  { threshold: 0.2 },
-);
-
-onMounted(() => {
-  watcher.observe(welcomeRef.value!);
+onBeforeUnmount(() => {
+  if (messageRef.value) {
+    messageRef.value.removeEventListener('animationend', setTypewriter);
+  }
 });
 </script>
 
 <template>
   <div class="welcome" ref="welcomeRef">
     <img v-if="state.sayHi" src="@/assets/svg/say-hi.svg" alt="say-hi" />
-    <div v-if="state.title" class="welcome-title">Self-Introduce</div>
+    <div v-if="state.title" class="welcome-title page-title">Self-Introduce</div>
     <div v-if="state.message" ref="messageRef" class="welcome-message">
       <p v-html="message"></p>
     </div>
@@ -91,26 +91,17 @@ onMounted(() => {
     transform: translateX(0);
   }
 }
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
-
 .welcome {
   position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden;
   display: flex;
   &-message {
     position: relative;
     flex: 1;
     min-height: 50%;
+    max-height: 80%;
+    overflow: auto;
     margin: auto 60px auto 32px;
     padding: 24px;
     border-radius: 32px;
@@ -122,8 +113,8 @@ onMounted(() => {
       white-space: pre-wrap;
       line-height: 1.4;
       &::after {
+        @include animation-blink();
         content: '|';
-        animation: blink 1s step-end infinite;
       }
     }
     &::before {
@@ -142,12 +133,7 @@ onMounted(() => {
   &-title {
     position: absolute;
     top: 20%;
-    left: 10%;
-    padding: 24px;
-    border-radius: 32px;
-    font-size: 60px;
-    font-weight: 700;
-    color: #fff;
+    left: 15%;
     animation: title-in 1s cubic-bezier(0.77, 0, 0.175, 1);
   }
   > img {

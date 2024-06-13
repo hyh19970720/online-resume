@@ -13,6 +13,13 @@ export default defineConfig((config) => {
         '@': path.resolve(__dirname, './src'),
       },
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "@/styles/mixin.scss";`,
+        },
+      },
+    },
     plugins: [
       vue(),
       legacy({

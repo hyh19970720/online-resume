@@ -1,0 +1,12 @@
+@mixin animation-blink($duration: 1s, $timing-fun: linear, $iteration: infinite) {
+  animation: blink $duration $timing-fun $iteration;
+}
+@keyframes blink {
+  from,
+  to {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}

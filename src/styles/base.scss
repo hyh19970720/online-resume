@@ -2,6 +2,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
 }
 
 body {
@@ -13,4 +16,10 @@ body {
     rgba(248, 198, 215, 1) 4.927083333333334%,
     rgba(175, 233, 249, 1) 97.84374999999999%
   );
+  font-family: 'Trebuchet MS', 'Microsoft-YaHei';
+}
+
+ol,
+ul {
+  list-style: none;
 }

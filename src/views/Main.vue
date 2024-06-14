@@ -2,6 +2,7 @@
 import Skeleton from './Skeleton.vue';
 import Welcome from './Welcome.vue';
 import TechnologyStack from './TechnologyStack.vue';
+import WorkExperience from './WorkExperience.vue';
 </script>
 
 <template>
@@ -9,6 +10,7 @@ import TechnologyStack from './TechnologyStack.vue';
     <section><Skeleton /></section>
     <section><Welcome /></section>
     <section><TechnologyStack /></section>
+    <section><WorkExperience /></section>
   </div>
 </template>
 
